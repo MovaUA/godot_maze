@@ -42,15 +42,9 @@ func _init(width: int, height: int) -> void:
 
 ## Generates a maze using Wilson's algorithm.
 func generate_maze() -> void:
-	print_maze("initial")
-
 	var start_position = get_random_unvisited_position()
 	visit(start_position)
 
-	print_maze("start position %s" % start_position)
-
-	var path_index: int = 0
-	var iteration_index: int = 0
 
 	while not is_all_visited():
 		var pos = get_random_unvisited_position()
@@ -58,8 +52,6 @@ func generate_maze() -> void:
 		
 
 		while true:
-			iteration_index += 1
-
 			var neighbor = get_random_neighbor(pos)
 
 			if is_visited(neighbor):
@@ -80,10 +72,6 @@ func generate_maze() -> void:
 
 		remove_walls_along_path(path)
 		visit_path(path)
-		print_maze("path is visited, iteration_index: %s, path_index: %s, path: %s-%s" % [iteration_index, path_index, path[0], path[path.size() - 1]])
-		path_index += 1
-	
-	print_maze("generated, iteration_index: %s, path_index: %s" % [iteration_index, path_index])
 
 
 func visit_path(path: Array[Vector2i]) -> void:
